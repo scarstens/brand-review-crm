@@ -1,0 +1,31 @@
+{
+  "name": "scarsetns/brand-review-crm",
+  "description": "Plugin that enables a CRM system for vendors seeking reviews that are managing free or refunded products. ",
+  "keywords": [
+	"wordpress",
+	"site-options",
+	"utility",
+	"helper"
+  ],
+  "homepage": "https://github.com/scarstens/brand_review_crm",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+	{
+	  "name": "Brand Reviews Team",
+	  "email": "code.devwalker@domain.test",
+	  "homepage": "https://github.com/scarstens/brand_review_crm",
+	  "role": "Developer"
+	}
+  ],
+  "require": {
+	"WordPress-Phoenix/abstract-plugin-base": "^2.6"
+  },
+  "config": {
+	"vendor-dir": "lib"
+  },
+  "autoload": {
+	"classmap": [
+	  "/"
+	]
+  }
+}
