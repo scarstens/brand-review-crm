@@ -21,7 +21,7 @@ class Custom_Post_Types {
 	/**
 	 * Custom_Post_Types constructor.
 	 *
-	 * @param array $args
+	 * @param array $args Arguments.
 	 */
 	function __construct( $args = [] ) {
 		add_action( 'init', [ static::class, 'create_custom_tax' ] );
@@ -60,15 +60,27 @@ class Custom_Post_Types {
 	 * Creates the awesome linking between CPT and TAX
 	 * ie http://local.wordpress.dev/events/awesome-seo/seo-proper-custom-post-event/
 	 *
-	 * @param $post_link
-	 * @param $post
+	 * @param string   $post_link Post Link.
+	 * @param \WP_Post $post      Post object.
 	 *
 	 * @return mixed
 	 */
 	static function proper_custom_permalinks( $post_link, $post ) {
+		// Only filter if CPT matches registered type.
+		if ( static::$cpt_name !== $post->post_type ) {
+			return $post_link;
+		}
+
+		// Make sure custom permalink data is available.
 		if ( false !== strpos( $post_link, '%' . static::$tax_name . '%' ) ) {
 			$event_type_term = get_the_terms( $post->ID, static::$tax_name );
-			$post_link       = str_replace( '%' . static::$tax_name . '%', array_pop( $event_type_term )->slug, $post_link );
+			if ( is_array( $event_type_term ) ) {
+				$post_link = str_replace( '%' . static::$tax_name . '%', array_pop( $event_type_term )->slug, $post_link );
+			} elseif ( stristr( $post_link, '%' ) && 'sample-permalink' === filter_input( INPUT_POST, 'action' ) ) {
+				echo 'Please choose a ' . esc_html( static::$tax_name ) . ' and Save. <br />';
+
+				return false;
+			}
 		}
 
 		return $post_link;

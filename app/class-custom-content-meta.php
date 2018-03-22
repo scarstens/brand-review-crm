@@ -38,6 +38,9 @@ class Custom_Content_Meta {
 			'id'           => $prefix . 'metabox',
 			'title'        => esc_html__( 'Test Metabox', 'cmb2_tabs' ),
 			'object_types' => [ 'review_product' ],
+			'context'      => 'advanced',
+			'priority'     => 'low',
+			'closed'           => false,
 			'tabs'         => [
 				'contact' => [
 					'label' => __( 'Contact', 'cmb2_tabs' ),
